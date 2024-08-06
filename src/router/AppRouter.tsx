@@ -7,7 +7,7 @@ export const AppRouter = () => {
   const authStatus = 'authenticated';
   return (
     <Routes>
-      { authStatus !== 'authenticated' ? (
+      { authStatus === 'authenticated' ? (
         <Route path="/*" element={ <CalendarRoutes /> } />
       ) : (
         <Route path="/auth/*" element={ <AuthRoutes /> } />

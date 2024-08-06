@@ -15,15 +15,15 @@ export const MenuUser = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" size="icon" className="rounded-full">
           <CircleUser className="h-5 w-5" />
-          <span className="sr-only">Menú de usuario</span>
+          <span className="sr-only">Toogle user menu</span>
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Salir</DropdownMenuItem>
+        <DropdownMenuItem>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

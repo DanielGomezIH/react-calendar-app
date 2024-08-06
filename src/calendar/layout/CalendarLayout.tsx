@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar } from '../components';
+import { Navbar } from './components';
 
 type CalendarLayoutProps = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ export const CalendarLayout = ( { children }: CalendarLayoutProps ) => {
 
       <Navbar />
 
-      <main className="p-4 md:p-6">
+      <main className="flex-grow p-4 md:p-6">
         { children }
       </main>
 

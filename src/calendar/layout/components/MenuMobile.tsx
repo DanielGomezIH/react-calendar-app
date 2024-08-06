@@ -13,7 +13,7 @@ export const MenuMobile = () => {
           className="shrink-0 md:hidden"
         >
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Menú de usuario</span>
+          <span className="sr-only">User menu</span>
         </Button>
       </SheetTrigger>
 
