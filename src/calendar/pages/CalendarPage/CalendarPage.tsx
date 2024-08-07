@@ -1,28 +1,15 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import { addHours } from 'date-fns';
 import { Calendar, View, Views } from 'react-big-calendar';
 
 import { CalendarLayout } from '@/calendar/layout';
 
-import { CalendarEvent, NewEventModal } from '@/calendar/components';
+import { AddNewButton, CalendarEvent, NewEventModal } from '@/calendar/components';
 
 import { localizer } from '@/helpers';
+import { useCalendarStore, useUiStore } from '@/hooks';
 import type { Event } from '@/models';
 import { useState } from 'react';
-import { useUiStore } from '@/hooks';
-
-const events: Event[] = [ {
-  title: 'Media maratón',
-  notes: 'Preparar geles',
-  start: new Date(),
-  end: addHours( new Date(), 2 ),
-  bgColor: '#fafafa',
-  user: {
-    _id: 123,
-    name: 'Daniel'
-  }
-} ];
 
 interface EventStyle {
   style: React.CSSProperties;
@@ -31,6 +18,7 @@ interface EventStyle {
 export const CalendarPage = () => {
 
   const { openDateModal } = useUiStore();
+  const { events, setActiveEvent } = useCalendarStore();
 
   const initialView = localStorage.getItem( 'lastView' ) as View | null;
 
@@ -53,7 +41,8 @@ export const CalendarPage = () => {
   };
 
   const onSelect = ( event: Event ) => {
-    console.log( { click: event } );
+    // console.log( event );
+    setActiveEvent( event );
   };
 
   const onViewChanged = ( view: View ) => {
@@ -81,6 +70,7 @@ export const CalendarPage = () => {
       />
 
       <NewEventModal />
+      <AddNewButton />
     </CalendarLayout>
   );
 };

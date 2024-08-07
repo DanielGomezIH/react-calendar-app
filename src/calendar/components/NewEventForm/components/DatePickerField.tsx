@@ -7,22 +7,21 @@ import {
 
 import { DateTimePicker } from '@/components/ui/datetime-picker';
 
+import { Event } from '@/models';
 import { UseFormReturn } from 'react-hook-form';
-import { EventFormData } from '../NewEventForm';
 
 interface DatePickerFieldProps {
-  form: UseFormReturn<EventFormData, any, undefined>;
+  form: UseFormReturn<Event, any, undefined>;
   label: string;
-  triggerTitle: string;
-  name: "startDate" | "endDate";
+  placeHolder: string;
+  name: "start" | "end";
   isDisabled: boolean;
 }
 
-export const DatePickerField = ( { form, label, triggerTitle, name, isDisabled }: DatePickerFieldProps ) => {
+export const DatePickerField = ( { form, label, placeHolder, name, isDisabled }: DatePickerFieldProps ) => {
 
   return (
     <FormField
-      disabled={ isDisabled }
       control={ form.control }
       name={ name }
       render={ ( { field } ) => (
@@ -32,7 +31,7 @@ export const DatePickerField = ( { form, label, triggerTitle, name, isDisabled }
             hourCycle={ 12 }
             value={ field.value }
             onChange={ field.onChange }
-            placeholder={ triggerTitle }
+            placeholder={ placeHolder }
             disabled={ isDisabled }
           />
           <FormMessage />
