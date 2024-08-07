@@ -4,21 +4,18 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from 'react';
+import { useUiStore } from '@/hooks';
 import { NewEventForm } from '../NewEventForm';
 
-export const NewEventModal = ( { triggerTitle } ) => {
+export const NewEventModal = () => {
 
-  const [ isOpen, setIsOpen ] = useState( true );
+  const { isDateModalOpen, closeDateModal } = useUiStore();
 
   return (
-    <Dialog open={ isOpen } onOpenChange={ setIsOpen }>
+    <Dialog open={ isDateModalOpen }>
 
-      <DialogTrigger>{ triggerTitle }</DialogTrigger>
-
-      <DialogContent>
+      <DialogContent onCloseClick={ closeDateModal }>
 
         <DialogHeader>
           <DialogTitle>New Event</DialogTitle>
@@ -27,11 +24,10 @@ export const NewEventModal = ( { triggerTitle } ) => {
           </DialogDescription>
         </DialogHeader>
 
-        <div>
-          <NewEventForm />
-        </div>
+        <NewEventForm />
 
       </DialogContent>
+
 
     </Dialog>
   );

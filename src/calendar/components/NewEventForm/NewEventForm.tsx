@@ -11,8 +11,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
 import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
+import { DatePickerField } from './components';
 import { EventSchema } from './validations';
 
 
@@ -24,6 +27,9 @@ export type EventFormData = {
 };
 
 export const NewEventForm = () => {
+
+  const [ isFormSubmitted, setIsFormSubmitted ] = useState<boolean>( false );
+
   const form = useForm<EventFormData>( {
     resolver: zodResolver( EventSchema ),
     defaultValues: {
@@ -35,43 +41,35 @@ export const NewEventForm = () => {
   } );
 
   function onSubmit( data: EventFormData ) {
+    setIsFormSubmitted( true );
     console.log( data );
   }
+
 
   return (
     <Form { ...form }>
       <form onSubmit={ form.handleSubmit( onSubmit ) } className="w-full space-y-6">
-        <FormField
-          control={ form.control }
+
+        <DatePickerField
+          isDisabled={ isFormSubmitted }
+          form={ form }
           name="startDate"
-          render={ ( { field } ) => (
-            <FormItem>
-              <FormLabel>Start date and hour</FormLabel>
-              <FormControl>
-                <Input type='date' placeholder="Start date" { ...field } />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          ) }
+          label='Start date and hour'
+          triggerTitle='Pick a date'
         />
 
-        <FormField
-          control={ form.control }
+        <DatePickerField
+          isDisabled={ isFormSubmitted }
+          form={ form }
           name="endDate"
-          render={ ( { field } ) => (
-            <FormItem>
-              <FormLabel>End date and hour</FormLabel>
-              <FormControl>
-                <Input type='date' placeholder="End date" { ...field } />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          ) }
+          label='End date and hour'
+          triggerTitle='Pick a date'
         />
 
         <hr />
 
         <FormField
+          disabled={ isFormSubmitted }
           control={ form.control }
           name="title"
           render={ ( { field } ) => (
@@ -89,6 +87,7 @@ export const NewEventForm = () => {
         />
 
         <FormField
+          disabled={ isFormSubmitted }
           control={ form.control }
           name="notes"
           render={ ( { field } ) => (
@@ -109,57 +108,9 @@ export const NewEventForm = () => {
           ) }
         />
 
-        <Button type="submit">Submit</Button>
+        <Button disabled={ isFormSubmitted } type="submit">Create</Button>
       </form>
     </Form>
   );
 };
 
-{/* <div>
-          <form className="container">
-
-            <div className="flex flex-col mb-2">
-              <label>Fecha y hora inicio</label>
-              <input className="form-control" placeholder="Fecha inicio" />
-            </div>
-
-            <div className="flex flex-col mb-2">
-              <label>Fecha y hora fin</label>
-              <input className="form-control" placeholder="Fecha inicio" />
-            </div>
-
-            <hr />
-
-            <div className=" mb-2">
-              <label>Titulo y notas</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Título del evento"
-                name="title"
-                autoComplete="off"
-              />
-              <small id="emailHelp" className="form-text text-muted">Una descripción corta</small>
-            </div>
-
-            <div className="form-group mb-2">
-              <textarea
-                type="text"
-                className="form-control"
-                placeholder="Notas"
-                rows="5"
-                name="notes"
-              ></textarea>
-              <small id="emailHelp" className="form-text text-muted">Información adicional</small>
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-outline-primary btn-block"
-            >
-              <i className="far fa-save"></i>
-              <span> Guardar</span>
-            </button>
-
-          </form>
-        </div> */}

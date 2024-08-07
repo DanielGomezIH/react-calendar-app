@@ -10,6 +10,7 @@ import { CalendarEvent, NewEventModal } from '@/calendar/components';
 import { localizer } from '@/helpers';
 import type { Event } from '@/models';
 import { useState } from 'react';
+import { useUiStore } from '@/hooks';
 
 const events: Event[] = [ {
   title: 'Media maratón',
@@ -29,13 +30,16 @@ interface EventStyle {
 
 export const CalendarPage = () => {
 
+  const { openDateModal } = useUiStore();
+
   const initialView = localStorage.getItem( 'lastView' ) as View | null;
 
   const [ lastView, setLastView ] = useState<View>( initialView || Views.WEEK );
 
   const eventStyleGetter = ( event: Event, start: Date, end: Date, isSelected: boolean ): EventStyle => {
+
     const style: React.CSSProperties = {
-      backgroundColor: '#347CF7',
+      backgroundColor: '#3b6bf6',
       borderRadius: '8px',
       opacity: 0.8,
       color: 'white',
@@ -45,7 +49,7 @@ export const CalendarPage = () => {
   };
 
   const onDoubleClick = ( event: Event ) => {
-    console.log( { doubleClick: event } );
+    openDateModal();
   };
 
   const onSelect = ( event: Event ) => {
@@ -68,14 +72,15 @@ export const CalendarPage = () => {
         style={ { height: 'calc(100vh - 112px)' } }
         eventPropGetter={ eventStyleGetter }
         components={ {
-          event: CalendarEvent
+          event: CalendarEvent,
+
         } }
         onDoubleClickEvent={ onDoubleClick }
         onSelectEvent={ onSelect }
         onView={ onViewChanged }
       />
 
-      <NewEventModal triggerTitle={ "Modal" } />
+      <NewEventModal />
     </CalendarLayout>
   );
 };

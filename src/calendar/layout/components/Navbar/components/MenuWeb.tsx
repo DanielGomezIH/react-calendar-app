@@ -16,21 +16,7 @@ export const MenuWeb = () => {
         to="/"
         className="text-foreground transition-colors hover:text-foreground"
       >
-        Dashboard
-      </Link>
-
-      <Link
-        to="/"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Orders
-      </Link>
-
-      <Link
-        to="/"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Products
+        Calendar
       </Link>
     </nav>
   );
