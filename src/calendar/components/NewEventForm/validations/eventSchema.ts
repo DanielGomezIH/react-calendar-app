@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { Event } from '@/models';
 
 export const EventSchema: z.ZodType<Event> = z.object({
+  _id: z.union([z.number(), z.null()]),
+
   start: z.date({
     required_error: 'Please enter a start date.',
   }),
@@ -21,7 +23,7 @@ export const EventSchema: z.ZodType<Event> = z.object({
   bgColor: z.string(),
 
   user: z.object({
-    _id: z.number(),
+    _id: z.union([z.number(), z.null()]),
     name: z.string(),
   }),
 });

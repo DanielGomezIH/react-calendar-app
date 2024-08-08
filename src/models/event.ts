@@ -1,7 +1,7 @@
 import type { User } from './user';
 
 export interface Event {
-  _id?: number;
+  _id: number | null;
   title: string;
   notes: string;
   start: Date;

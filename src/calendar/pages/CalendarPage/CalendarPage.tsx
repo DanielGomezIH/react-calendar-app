@@ -4,7 +4,7 @@ import { Calendar, View, Views } from 'react-big-calendar';
 
 import { CalendarLayout } from '@/calendar/layout';
 
-import { AddNewButton, CalendarEvent, NewEventModal } from '@/calendar/components';
+import { AddNewButton, CalendarEvent, DeleteButton, NewEventModal } from '@/calendar/components';
 
 import { localizer } from '@/helpers';
 import { useCalendarStore, useUiStore } from '@/hooks';
@@ -18,7 +18,7 @@ interface EventStyle {
 export const CalendarPage = () => {
 
   const { openDateModal } = useUiStore();
-  const { events, setActiveEvent } = useCalendarStore();
+  const { events, setActiveEvent, setHasSelectedEvent } = useCalendarStore();
 
   const initialView = localStorage.getItem( 'lastView' ) as View | null;
 
@@ -41,7 +41,7 @@ export const CalendarPage = () => {
   };
 
   const onSelect = ( event: Event ) => {
-    // console.log( event );
+    setHasSelectedEvent();
     setActiveEvent( event );
   };
 
@@ -70,7 +70,9 @@ export const CalendarPage = () => {
       />
 
       <NewEventModal />
+
       <AddNewButton />
+      <DeleteButton />
     </CalendarLayout>
   );
 };

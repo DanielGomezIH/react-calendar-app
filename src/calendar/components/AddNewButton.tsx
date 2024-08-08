@@ -10,6 +10,7 @@ export const AddNewButton = () => {
 
   const onClickNew = () => {
     setActiveEvent( {
+      _id: null,
       start: new Date(),
       end: addHours( new Date(), 2 ),
       title: '',

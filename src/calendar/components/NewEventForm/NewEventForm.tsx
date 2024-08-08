@@ -1,5 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,12 +11,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from '@/components/ui/textarea';
-import { useEffect, useState } from 'react';
+import { useCalendarStore, useUiStore } from '@/hooks';
+import { Event } from '@/models';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { addHours } from 'date-fns';
+import { useForm } from "react-hook-form";
 import { DatePickerField } from './components';
 import { EventSchema } from './validations';
-import { useCalendarStore, useUiStore } from '@/hooks';
-import { addHours } from 'date-fns';
-import { Event } from '@/models';
 
 export const NewEventForm = () => {
   const { closeDateModal } = useUiStore();
@@ -28,13 +28,14 @@ export const NewEventForm = () => {
   const form = useForm<Event>( {
     resolver: zodResolver( EventSchema ),
     defaultValues: {
+      _id: null,
       start: new Date(),
       end: addHours( new Date(), 2 ),
       title: "",
       notes: "",
       bgColor: "",
       user: {
-        _id: 0,
+        _id: null,
         name: ""
       },
     },
@@ -53,6 +54,7 @@ export const NewEventForm = () => {
 
   useEffect( () => {
     if ( activeEvent !== null ) {
+      form.setValue( '_id', activeEvent._id );
       form.setValue( 'start', activeEvent.start );
       form.setValue( 'end', activeEvent.end );
       form.setValue( 'title', activeEvent.title );

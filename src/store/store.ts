@@ -8,6 +8,10 @@ export const store = configureStore({
     calendar: calendarSlice.reducer,
     // auth: authSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
