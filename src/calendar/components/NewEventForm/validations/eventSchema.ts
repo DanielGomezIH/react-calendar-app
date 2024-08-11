@@ -16,9 +16,7 @@ export const EventSchema: z.ZodType<Event> = z.object({
     message: 'Your title must be at least 2 characters',
   }),
 
-  notes: z.string().min(2, {
-    message: 'Your note must be at least 2 characters',
-  }),
+  notes: z.string().optional(),
 
   bgColor: z.string(),
 

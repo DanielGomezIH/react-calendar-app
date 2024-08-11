@@ -45,6 +45,10 @@ export const NewEventForm = () => {
 
     setIsFormSubmitted( true );
 
+    if ( data.notes === '' ) {
+      delete data.notes;
+    }
+
     await startSavingEvent( data );
 
     closeDateModal();
@@ -54,11 +58,15 @@ export const NewEventForm = () => {
 
   useEffect( () => {
     if ( activeEvent !== null ) {
+
+      if ( activeEvent.notes ) {
+        form.setValue( 'notes', activeEvent.notes );
+      }
+
       form.setValue( '_id', activeEvent._id );
       form.setValue( 'start', activeEvent.start );
       form.setValue( 'end', activeEvent.end );
       form.setValue( 'title', activeEvent.title );
-      form.setValue( 'notes', activeEvent.notes );
       form.setValue( 'bgColor', activeEvent.bgColor );
       form.setValue( 'user', activeEvent.user );
     }
