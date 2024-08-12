@@ -4,7 +4,7 @@ import { CalendarRoutes } from '../calendar/routes/CalendarRoutes';
 import { AuthRoutes } from '../auth/routes/AuthRoutes';
 
 export const AppRouter = () => {
-  const authStatus = 'authenticated';
+  const authStatus = 'checking';
   return (
     <Routes>
       { authStatus === 'authenticated' ? (
