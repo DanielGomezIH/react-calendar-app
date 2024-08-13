@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from '@/hooks';
+import { toastErrorStyles } from '@/lib';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { RegisterSchema } from './validations/registerSchema';
-import { toastErrorStyles } from '@/lib';
 
 export interface RegisterFormData {
   name: string;
@@ -19,9 +19,9 @@ export interface RegisterFormData {
 
 export function RegisterPage() {
 
-  const { errorMessage, startRegister } = useAuthStore();
+  const { status, errorMessage, startRegister } = useAuthStore();
 
-  const [ isFormSubmitted, setIsFormSubmitted ] = useState<boolean>( false );
+  const isCheckingStatus = useMemo( () => status === 'checking', [ status ] );
 
   const form = useForm<RegisterFormData>( {
     resolver: zodResolver( RegisterSchema ),
@@ -33,8 +33,6 @@ export function RegisterPage() {
   } );
 
   const onSubmit = ( data: RegisterFormData ) => {
-    setIsFormSubmitted( true );
-
     startRegister( {
       name: data.name,
       email: data.email,
@@ -75,7 +73,7 @@ export function RegisterPage() {
                     placeholder='Will'
                     required
                     { ...field }
-                    disabled={ isFormSubmitted }
+                    disabled={ isCheckingStatus }
                   />
                 </FormControl>
 
@@ -97,7 +95,7 @@ export function RegisterPage() {
                     placeholder="email@example.com"
                     required
                     { ...field }
-                    disabled={ isFormSubmitted }
+                    disabled={ isCheckingStatus }
                   />
                 </FormControl>
 
@@ -119,7 +117,7 @@ export function RegisterPage() {
                     placeholder="Password"
                     required
                     { ...field }
-                    disabled={ isFormSubmitted }
+                    disabled={ isCheckingStatus }
                   />
                 </FormControl>
 
@@ -131,7 +129,7 @@ export function RegisterPage() {
           <Button
             type="submit"
             className="w-full"
-            disabled={ isFormSubmitted }
+            disabled={ isCheckingStatus }
           >
             Create an account
           </Button>

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useAuthStore } from '@/hooks';
 import { toastErrorStyles } from '@/lib';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -18,9 +18,9 @@ export interface LoginFormData {
 
 export function LoginPage() {
 
-  const { errorMessage, startLogin } = useAuthStore();
+  const { status, errorMessage, startLogin } = useAuthStore();
 
-  const [ isFormSubmitted, setIsFormSubmitted ] = useState<boolean>( false );
+  const isCheckingStatus = useMemo( () => status === 'checking', [ status ] );
 
   const form = useForm<LoginFormData>( {
     resolver: zodResolver( LoginSchema ),
@@ -31,14 +31,10 @@ export function LoginPage() {
   } );
 
   const onSubmit = ( data: LoginFormData ) => {
-    setIsFormSubmitted( true );
-
     startLogin( {
       email: data.email,
       password: data.password
     } );
-
-    // setIsFormSubmitted( false );
   };
 
   useEffect( () => {
@@ -75,7 +71,7 @@ export function LoginPage() {
                     placeholder="email@example.com"
                     required
                     { ...field }
-                    disabled={ isFormSubmitted }
+                    disabled={ isCheckingStatus }
                   />
                 </FormControl>
                 <FormMessage />
@@ -103,7 +99,7 @@ export function LoginPage() {
                     placeholder="Password"
                     required
                     { ...field }
-                    disabled={ isFormSubmitted }
+                    disabled={ isCheckingStatus }
                   />
                 </FormControl>
                 <FormMessage />
@@ -114,7 +110,7 @@ export function LoginPage() {
           <Button
             type="submit"
             className="w-full"
-            disabled={ isFormSubmitted }>
+            disabled={ isCheckingStatus }>
             Login
           </Button>
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const MenuWeb = () => {
   return (
-    <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+    <nav className="font-medium flex items-center gap-4 md:gap-2 text-sm lg:gap-4">
       <Link
         to="/"
         className="flex items-center gap-2 text-lg font-semibold md:text-base"
@@ -14,7 +14,7 @@ export const MenuWeb = () => {
 
       <Link
         to="/"
-        className="text-foreground transition-colors hover:text-foreground"
+        className="hidden md:flex text-foreground transition-colors hover:text-foreground"
       >
         Calendar
       </Link>
