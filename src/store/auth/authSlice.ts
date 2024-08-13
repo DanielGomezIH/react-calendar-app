@@ -26,13 +26,13 @@ const initialState: initialStateProps = {
   errorMessage: null,
 };
 
-export const authSlice = createSlice({
+export const authSlice = createSlice( {
   name: 'auth',
 
   initialState,
 
   reducers: {
-    checking: (state) => {
+    checking: ( state ) => {
       state.status = 'checking';
       state.user = {
         uid: null,
@@ -42,12 +42,26 @@ export const authSlice = createSlice({
       state.errorMessage = null;
     },
 
-    login: (state, { payload }) => {
+    login: ( state, { payload } ) => {
       state.status = 'authenticated';
       state.user = payload;
       state.errorMessage = null;
     },
-  },
-});
 
-export const { checking, login } = authSlice.actions;
+    logout: ( state, { payload } ) => {
+      state.status = 'not-authenticated';
+      state.user = {
+        uid: null,
+        name: null,
+        email: null,
+      };
+      state.errorMessage = payload || null;
+    },
+
+    clearErrorMessage: ( state ) => {
+      state.errorMessage = null;
+    }
+  },
+} );
+
+export const { checking, login, logout, clearErrorMessage } = authSlice.actions;

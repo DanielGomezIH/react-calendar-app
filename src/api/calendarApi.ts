@@ -1,12 +1,22 @@
 import { getEnvironments } from '@/helpers';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 const { VITE_API_URL } = getEnvironments();
 
-const calendarApi = axios.create({
+const calendarApi: AxiosInstance = axios.create( {
   baseURL: VITE_API_URL,
-});
+} );
 
-//Todo: Configurar interceptores
+// Todo: Configurar interceptores
+
+calendarApi.interceptors.request.use( config => {
+
+  config.headers = {
+    ...config.headers,
+    'x-token': localStorage.getItem( 'token' )
+  };
+
+  return config;
+} );
 
 export default calendarApi;

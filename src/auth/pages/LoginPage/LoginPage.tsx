@@ -2,11 +2,14 @@ import { AuthLayout } from '@/auth/layout';
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from '@/hooks';
+import { toastErrorStyles } from '@/lib';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { LoginSchema } from './validations/loginSchema';
-import { useState } from 'react';
 
 export interface LoginFormData {
   email: string,
@@ -14,6 +17,8 @@ export interface LoginFormData {
 }
 
 export function LoginPage() {
+
+  const { errorMessage, startLogin } = useAuthStore();
 
   const [ isFormSubmitted, setIsFormSubmitted ] = useState<boolean>( false );
 
@@ -27,8 +32,25 @@ export function LoginPage() {
 
   const onSubmit = ( data: LoginFormData ) => {
     setIsFormSubmitted( true );
-    console.log( data );
+
+    startLogin( {
+      email: data.email,
+      password: data.password
+    } );
+
+    // setIsFormSubmitted( false );
   };
+
+  useEffect( () => {
+
+    if ( errorMessage !== null ) {
+      toast.error( errorMessage, {
+        style: toastErrorStyles
+      } );
+    }
+
+  }, [ errorMessage ] );
+
 
   return (
     <AuthLayout

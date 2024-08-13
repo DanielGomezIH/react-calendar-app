@@ -2,11 +2,14 @@ import { AuthLayout } from '@/auth/layout';
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { RegisterSchema } from './validations/registerSchema';
-import { useState } from 'react';
+import { toastErrorStyles } from '@/lib';
 
 export interface RegisterFormData {
   name: string;
@@ -15,6 +18,8 @@ export interface RegisterFormData {
 }
 
 export function RegisterPage() {
+
+  const { errorMessage, startRegister } = useAuthStore();
 
   const [ isFormSubmitted, setIsFormSubmitted ] = useState<boolean>( false );
 
@@ -29,8 +34,21 @@ export function RegisterPage() {
 
   const onSubmit = ( data: RegisterFormData ) => {
     setIsFormSubmitted( true );
-    console.log( data );
+
+    startRegister( {
+      name: data.name,
+      email: data.email,
+      password: data.password
+    } );
   };
+
+  useEffect( () => {
+
+    if ( errorMessage !== null ) {
+      toast.error( errorMessage, { style: toastErrorStyles } );
+    }
+
+  }, [ errorMessage ] );
 
   return (
     <AuthLayout
