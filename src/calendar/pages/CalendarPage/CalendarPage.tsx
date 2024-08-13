@@ -9,7 +9,7 @@ import { AddNewButton, CalendarEvent, DeleteButton, NewEventModal } from '@/cale
 import { localizer } from '@/helpers';
 import { useCalendarStore, useUiStore } from '@/hooks';
 import type { Event } from '@/models';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface EventStyle {
   style: React.CSSProperties;
@@ -18,13 +18,14 @@ interface EventStyle {
 export const CalendarPage = () => {
 
   const { openDateModal } = useUiStore();
-  const { events, setActiveEvent, setHasSelectedEvent } = useCalendarStore();
+
+  const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
 
   const initialView = localStorage.getItem( 'lastView' ) as View | null;
 
   const [ lastView, setLastView ] = useState<View>( initialView || Views.WEEK );
 
-  const eventStyleGetter = ( event: Event, start: Date, end: Date, isSelected: boolean ): EventStyle => {
+  const eventStyleGetter = (): EventStyle => {
 
     const style: React.CSSProperties = {
       backgroundColor: '#3b6bf6',
@@ -36,12 +37,11 @@ export const CalendarPage = () => {
     return { style };
   };
 
-  const onDoubleClick = ( event: Event ) => {
+  const onDoubleClick = () => {
     openDateModal();
   };
 
   const onSelect = ( event: Event ) => {
-    setHasSelectedEvent();
     setActiveEvent( event );
   };
 
@@ -49,6 +49,10 @@ export const CalendarPage = () => {
     localStorage.setItem( 'lastView', view );
     setLastView( view );
   };
+
+  useEffect( () => {
+    startLoadingEvents();
+  }, [] );
 
   return (
     <CalendarLayout>

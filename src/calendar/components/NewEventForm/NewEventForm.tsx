@@ -28,15 +28,14 @@ export const NewEventForm = () => {
   const form = useForm<Event>( {
     resolver: zodResolver( EventSchema ),
     defaultValues: {
-      _id: null,
+      id: null,
       start: new Date(),
       end: addHours( new Date(), 2 ),
       title: "",
       notes: "",
-      bgColor: "",
       user: {
         _id: null,
-        name: ""
+        name: null,
       },
     },
   } );
@@ -63,11 +62,10 @@ export const NewEventForm = () => {
         form.setValue( 'notes', activeEvent.notes );
       }
 
-      form.setValue( '_id', activeEvent._id );
+      form.setValue( 'id', activeEvent.id );
       form.setValue( 'start', activeEvent.start );
       form.setValue( 'end', activeEvent.end );
       form.setValue( 'title', activeEvent.title );
-      form.setValue( 'bgColor', activeEvent.bgColor );
       form.setValue( 'user', activeEvent.user );
     }
   }, [ activeEvent ] );

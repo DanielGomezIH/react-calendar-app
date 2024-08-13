@@ -5,9 +5,9 @@ import { Trash } from 'lucide-react';
 export const DeleteButton = () => {
 
   const { isDateModalOpen } = useUiStore();
-  const { activeEvent, hasEventSelected, startDeletingEvent } = useCalendarStore();
+  const { activeEvent, startDeletingEvent } = useCalendarStore();
 
-  const showDeleteButton = activeEvent !== null && activeEvent._id !== null && !isDateModalOpen && hasEventSelected;
+  const showDeleteButton = activeEvent !== null && activeEvent.id !== null && !isDateModalOpen;
 
   const onClickNew = () => {
     startDeletingEvent( activeEvent! );

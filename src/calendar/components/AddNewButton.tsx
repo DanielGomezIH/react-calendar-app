@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useCalendarStore, useUiStore } from '@/hooks';
+import { useAuthStore, useCalendarStore, useUiStore } from '@/hooks';
 import { addHours } from 'date-fns';
 import { Plus } from 'lucide-react';
 
@@ -7,19 +7,19 @@ export const AddNewButton = () => {
 
   const { openDateModal } = useUiStore();
   const { setActiveEvent } = useCalendarStore();
+  const { user } = useAuthStore();
 
   const onClickNew = () => {
     setActiveEvent( {
-      _id: null,
+      id: null,
       start: new Date(),
       end: addHours( new Date(), 2 ),
       title: '',
       notes: '',
-      bgColor: '#fafafa',
       user: {
-        _id: 123,
-        name: 'Daniel',
-      },
+        _id: user.uid,
+        name: user.name
+      }
     } );
     openDateModal();
   };

@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export interface User {
+  uid: string | null;
+  name: string | null,
+  email: string | null;
+}
+
 interface initialStateProps {
   status: 'checking' | 'not-authenticated' | 'authenticated';
 
   user: User;
 
   errorMessage: string | null;
-}
-
-interface User {
-  uid: string | null;
-  name: string | null;
-  email: string | null;
 }
 
 const initialState: initialStateProps = {

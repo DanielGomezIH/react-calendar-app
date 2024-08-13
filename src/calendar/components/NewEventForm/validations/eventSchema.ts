@@ -1,27 +1,30 @@
 import { z } from 'zod';
-import { Event } from '@/models';
+import { Event, User } from '@/models';
 
-export const EventSchema: z.ZodType<Event> = z.object({
-  _id: z.union([z.number(), z.null()]),
+export const UserSchema: z.ZodType<User> = z.object( {
+  _id: z.union( [ z.string(), z.null() ] ),
 
-  start: z.date({
+  name: z.union( [ z.string(), z.null() ] ),
+} );
+
+
+export const EventSchema: z.ZodType<Event> = z.object( {
+  id: z.union( [ z.string(), z.null() ] ),
+
+  start: z.date( {
     required_error: 'Please enter a start date.',
-  }),
+  } ),
 
-  end: z.date({
+  end: z.date( {
     required_error: 'Please enter a end date.',
-  }),
+  } ),
 
-  title: z.string().min(2, {
+  title: z.string().min( 2, {
     message: 'Your title must be at least 2 characters',
-  }),
+  } ),
 
   notes: z.string().optional(),
 
-  bgColor: z.string(),
+  user: UserSchema,
+} );
 
-  user: z.object({
-    _id: z.union([z.number(), z.null()]),
-    name: z.string(),
-  }),
-});
