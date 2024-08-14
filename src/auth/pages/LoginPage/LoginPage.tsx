@@ -41,7 +41,8 @@ export function LoginPage() {
 
     if ( errorMessage !== null ) {
       toast.error( errorMessage, {
-        style: toastErrorStyles
+        style: toastErrorStyles,
+        duration: 1000
       } );
     }
 

@@ -17,7 +17,7 @@ export const useCalendarStore = () => {
 
   const dispatch = useAppDispatch();
 
-  const { events, activeEvent } = useAppSelector(
+  const { events, activeEvent, isLoadingEvents } = useAppSelector(
     ( state ) => state.calendar,
   );
 
@@ -49,11 +49,17 @@ export const useCalendarStore = () => {
         } ),
       );
 
-      toast.success( 'Event created successfully', { style: toastSuccessStyles } );
+      toast.success( 'Event created successfully', {
+        style: toastSuccessStyles,
+        duration: 1000
+      } );
 
     } catch ( error ) {
       console.log( error );
-      toast.error( 'Error saving event', { style: toastErrorStyles } );
+      toast.error( 'Error saving event', {
+        style: toastErrorStyles,
+        duration: 1000
+      } );
     }
   };
 
@@ -68,29 +74,38 @@ export const useCalendarStore = () => {
 
     } catch ( error ) {
       console.log( error );
-      toast.error( 'Error getting events', { style: toastErrorStyles } );
+      toast.error( 'Error loading events', {
+        style: toastErrorStyles,
+        duration: 1000
+      } );
     }
   };
 
   const startDeletingEvent = async ( calendarEvent: Event ) => {
-
     try {
 
       await calendarApi.delete( `/events/${ calendarEvent.id }` );
 
       dispatch( onDeleteEvent( { ...calendarEvent } ) );
 
-      toast.success( 'Event deleted successfully', { style: toastSuccessStyles } );
+      toast.success( 'Event deleted successfully', {
+        style: toastSuccessStyles,
+        duration: 1000
+      } );
 
     } catch ( error ) {
       console.log( error );
-      toast.error( 'Error deleting event', { style: toastErrorStyles } );
+      toast.error( 'Error deleting event', {
+        style: toastErrorStyles,
+        duration: 1000
+      } );
     }
   };
 
   return {
     //Properties
     events,
+    isLoadingEvents,
     activeEvent,
 
     //Methods

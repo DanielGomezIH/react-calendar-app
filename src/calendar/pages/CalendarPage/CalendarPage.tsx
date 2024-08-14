@@ -8,8 +8,10 @@ import { AddNewButton, CalendarEvent, DeleteButton, NewEventModal } from '@/cale
 
 import { localizer } from '@/helpers';
 import { useCalendarStore, useUiStore } from '@/hooks';
+import { toastBaseStyles } from '@/lib';
 import type { Event } from '@/models';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 interface EventStyle {
   style: React.CSSProperties;
@@ -52,6 +54,14 @@ export const CalendarPage = () => {
 
   useEffect( () => {
     startLoadingEvents();
+  }, [] );
+
+  useEffect( () => {
+    toast.promise( startLoadingEvents, {
+      loading: 'Loading...',
+      error: 'Error loading events',
+      style: toastBaseStyles
+    } );
   }, [] );
 
   return (

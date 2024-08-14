@@ -10,7 +10,7 @@ type AuthLayoutProps = {
 export const AuthLayout = ( { title, description, children }: AuthLayoutProps ) => {
   return (
     <div className="flex justify-center items-center w-full min-h-screen magicpattern">
-      <Card className="mx-auto w-full max-w-sm">
+      <Card className="mx-auto w-full max-w-sm max-h-full sm:max-h-[90%] overflow-y-auto">
         <CardHeader>
           <CardTitle className="text-xl">{ title }</CardTitle>
           <CardDescription>

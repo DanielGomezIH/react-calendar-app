@@ -10,5 +10,5 @@ ReactDOM.createRoot( document.getElementById( 'root' )! ).render(
     <ReduxProvider>
       <CalendarApp />
     </ReduxProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

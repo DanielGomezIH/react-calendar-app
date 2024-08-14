@@ -43,7 +43,10 @@ export function RegisterPage() {
   useEffect( () => {
 
     if ( errorMessage !== null ) {
-      toast.error( errorMessage, { style: toastErrorStyles } );
+      toast.error( errorMessage, {
+        style: toastErrorStyles,
+        duration: 1000
+      } );
     }
 
   }, [ errorMessage ] );

@@ -46,7 +46,7 @@ export const useAuthStore = () => {
 
       setTimeout( () => {
         dispatch( clearErrorMessage() );
-      }, 2000 );
+      }, 1000 );
     }
   };
 
@@ -88,7 +88,7 @@ export const useAuthStore = () => {
 
       setTimeout( () => {
         dispatch( clearErrorMessage() );
-      }, 2000 );
+      }, 1000 );
     }
   };
 
@@ -112,7 +112,7 @@ export const useAuthStore = () => {
       dispatch( login( {
         uid: data.uid,
         name: data.name,
-        email: email || null
+        email: email
       } ) );
 
     } catch ( error ) {
@@ -123,7 +123,7 @@ export const useAuthStore = () => {
 
       setTimeout( () => {
         dispatch( clearErrorMessage() );
-      }, 2000 );
+      }, 1000 );
     }
   };
 

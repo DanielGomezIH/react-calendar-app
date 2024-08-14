@@ -15,7 +15,9 @@ export const NewEventModal = () => {
   return (
     <Dialog open={ isDateModalOpen }>
 
-      <DialogContent onCloseClick={ closeDateModal }>
+      <DialogContent
+        onCloseClick={ closeDateModal }
+        className='max-h-full sm:max-h-[90%] overflow-y-auto'>
 
         <DialogHeader>
           <DialogTitle>New Event</DialogTitle>

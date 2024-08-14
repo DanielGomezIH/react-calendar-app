@@ -7,3 +7,8 @@ export const toastSuccessStyles = {
   backgroundColor: '#e0f5e0',
   color: '#2d8a2d'
 };
+
+export const toastBaseStyles = {
+  backgroundColor: '#FFFFFF',
+  color: '#172754'
+};
