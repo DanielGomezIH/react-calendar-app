@@ -4,19 +4,19 @@ const initialState = {
   isDateModalOpen: false,
 };
 
-export const uiSlice = createSlice({
+export const uiSlice = createSlice( {
   name: 'ui',
 
   initialState,
 
   reducers: {
-    onOpenDateModal: (state /* action */) => {
+    onOpenDateModal: ( state ) => {
       state.isDateModalOpen = true;
     },
-    onCloseDateModal: (state /* action */) => {
+    onCloseDateModal: ( state ) => {
       state.isDateModalOpen = false;
     },
   },
-});
+} );
 
 export const { onOpenDateModal, onCloseDateModal } = uiSlice.actions;

@@ -9,7 +9,7 @@ interface DatabaseEvent {
   user: DatabaseUser;
 }
 
-interface FormattedEvent {
+export interface FormattedEvent {
   id: string;
   title: string;
   notes?: string;

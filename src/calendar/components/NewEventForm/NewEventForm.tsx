@@ -21,9 +21,12 @@ import { EventSchema } from './validations';
 
 export const NewEventForm = () => {
   const { closeDateModal } = useUiStore();
+
   const { activeEvent, startSavingEvent } = useCalendarStore();
 
   const [ isFormSubmitted, setIsFormSubmitted ] = useState<boolean>( false );
+
+  const buttonMessage = activeEvent?.id === null ? 'Create' : 'Update';
 
   const form = useForm<Event>( {
     resolver: zodResolver( EventSchema ),
@@ -136,7 +139,12 @@ export const NewEventForm = () => {
           ) }
         />
 
-        <Button type="submit" disabled={ isFormSubmitted }>Create</Button>
+        <Button
+          type="submit"
+          disabled={ isFormSubmitted }
+        >
+          { buttonMessage }
+        </Button>
       </form>
     </Form>
   );

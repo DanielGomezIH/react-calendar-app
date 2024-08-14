@@ -1,3 +1,4 @@
+import { FormattedEvent } from '@/helpers';
 import { Event } from '@/models';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -35,7 +36,7 @@ export const calendarSlice = createSlice( {
       state.activeEvent = null;
     },
 
-    onLoadEvents: ( state, { payload } ) => {
+    onLoadEvents: ( state, { payload }: { payload: FormattedEvent[]; } ) => {
       state.isLoadingEvents = false;
 
       payload.forEach( ( dbEvent ) => {
@@ -47,18 +48,23 @@ export const calendarSlice = createSlice( {
     },
 
     onDeleteEvent: ( state, { payload } ) => {
-
       if ( state.activeEvent !== null && state.activeEvent.id !== null ) {
         state.events = state.events.filter( ( event ) => event.id !== payload.id );
         state.activeEvent = null;
       }
-
     },
+
+    onCalendarLogout: ( state ) => {
+      state.isLoadingEvents = true;
+      state.events = [];
+      state.activeEvent = null;
+    }
   },
 } );
 
 export const {
   onAddNewEvent,
+  onCalendarLogout,
   onDeleteEvent,
   onLoadEvents,
   onSetActiveEvent,

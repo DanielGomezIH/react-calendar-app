@@ -6,15 +6,15 @@ import {
 } from '@/store';
 
 export const useUiStore = () => {
-  const { isDateModalOpen } = useAppSelector((state) => state.ui);
+  const { isDateModalOpen } = useAppSelector( ( state ) => state.ui );
   const dispatch = useAppDispatch();
 
   const openDateModal = () => {
-    dispatch(onOpenDateModal());
+    dispatch( onOpenDateModal() );
   };
 
   const closeDateModal = () => {
-    dispatch(onCloseDateModal());
+    dispatch( onCloseDateModal() );
   };
 
   return {

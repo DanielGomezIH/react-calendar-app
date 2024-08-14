@@ -1,5 +1,5 @@
 import { calendarApi } from '@/api';
-import { checking, clearErrorMessage, login, logout, useAppDispatch, useAppSelector } from '@/store';
+import { checking, clearErrorMessage, login, logout, onCalendarLogout, useAppDispatch, useAppSelector } from '@/store';
 
 interface startLoginProps {
   email: string;
@@ -130,6 +130,7 @@ export const useAuthStore = () => {
   const startLogout = () => {
     localStorage.clear();
     dispatch( logout( null ) );
+    dispatch( onCalendarLogout() );
   };
 
   return {

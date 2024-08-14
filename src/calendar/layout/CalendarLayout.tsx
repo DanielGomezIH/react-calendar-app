@@ -11,7 +11,7 @@ export const CalendarLayout = ( { children }: CalendarLayoutProps ) => {
 
       <Navbar />
 
-      <main className="flex-grow p-4 md:p-6">
+      <main className="flex-grow p-4 md:p-8">
         { children }
       </main>
 

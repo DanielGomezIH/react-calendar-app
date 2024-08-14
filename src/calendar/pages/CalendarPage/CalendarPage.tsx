@@ -62,11 +62,10 @@ export const CalendarPage = () => {
         defaultView={ lastView }
         startAccessor="start"
         endAccessor="end"
-        style={ { height: 'calc(100vh - 112px)' } }
+        style={ { height: 'calc(100vh - 128px)' } }
         eventPropGetter={ eventStyleGetter }
         components={ {
           event: CalendarEvent,
-
         } }
         onDoubleClickEvent={ onDoubleClick }
         onSelectEvent={ onSelect }
