@@ -1,4 +1,4 @@
-import { getEnvironments } from '@/helpers';
+import { getEnvironments } from '../helpers';
 import axios, { AxiosInstance } from 'axios';
 
 const { VITE_API_URL } = getEnvironments();

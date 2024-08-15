@@ -6,7 +6,7 @@ export interface User {
   email: string | null;
 }
 
-interface initialStateProps {
+export interface initialStateProps {
   status: 'checking' | 'not-authenticated' | 'authenticated';
 
   user: User;
