@@ -2,13 +2,13 @@ import { FormattedEvent } from '@/helpers';
 import { Event } from '@/models';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface initialStateProps {
+export interface initialStateCalendarProps {
   events: Event[];
   isLoadingEvents: boolean;
   activeEvent: Event | null;
 }
 
-const initialState: initialStateProps = {
+const initialState: initialStateCalendarProps = {
   events: [],
   isLoadingEvents: true,
   activeEvent: null,
