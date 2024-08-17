@@ -7,7 +7,7 @@ export const DeleteButton = () => {
   const { isDateModalOpen } = useUiStore();
   const { activeEvent, startDeletingEvent } = useCalendarStore();
 
-  const showDeleteButton = activeEvent !== null && activeEvent.id !== null && !isDateModalOpen;
+  const showDeleteButton = activeEvent !== null && activeEvent.id !== null && isDateModalOpen === false;
 
   const onClickNew = () => {
     startDeletingEvent( activeEvent! );
