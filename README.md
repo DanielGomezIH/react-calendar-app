@@ -55,7 +55,7 @@ This is the frontend for the Calendary application, a modern and simple calendar
 1. **Start the development server**:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
 2. The app will be running at `http://localhost:5173`.
